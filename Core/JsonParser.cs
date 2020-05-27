@@ -1,6 +1,7 @@
 using Core.Interfaces;
 using Core.Tokens;
 using Core.Tokens.Item;
+using Core.Tokens.Typed;
 using FParsec.CSharp;
 using FParsec;
 using Microsoft.FSharp.Core;
@@ -22,7 +23,7 @@ namespace Core
         {
             FSharpFunc<CharStream<Unit>, Reply<JToken>> jvalue = null;
 
-            var jnull = StringCI("null", (JToken) null).Lbl("null");
+            var jnull = StringCI("null", (JToken) new NullToken()).Lbl("null");
 
             var jnum = Float.Map(i => (JToken) i).Lbl("number");
 

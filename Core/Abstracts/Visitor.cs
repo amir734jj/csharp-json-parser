@@ -17,6 +17,7 @@ namespace Core.Abstracts
                 DoubleToken doubleToken => Visit(doubleToken),
                 StringToken stringToken => Visit(stringToken),
                 BooleanToken booleanToken => Visit(booleanToken),
+                NullToken nullToken => Visit(nullToken),
                 _ => default
             };
         }
@@ -32,5 +33,7 @@ namespace Core.Abstracts
         public abstract T Visit(DoubleToken token);
 
         public abstract T Visit(StringToken token);
+
+        public abstract T Visit(NullToken token);
     }
 }

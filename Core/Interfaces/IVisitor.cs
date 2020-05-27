@@ -16,5 +16,7 @@ namespace Core.Interfaces
         T Visit(DoubleToken token);
         
         T Visit(StringToken token);
+        
+        T Visit(NullToken token);
     }
 }

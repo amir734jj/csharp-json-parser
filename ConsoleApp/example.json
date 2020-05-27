@@ -8,6 +8,7 @@
           "ID": "SGML",
           "Id": 123,
           "Flag": true,
+          "Foo": null,
           "SortAs": "SGML",
           "GlossTerm": "Standard Generalized Markup Language",
           "Acronym": "SGML",

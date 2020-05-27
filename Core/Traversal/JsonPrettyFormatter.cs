@@ -49,7 +49,7 @@ namespace Core.Traversal
         
         public override string Visit(JArray jArray)
         {
-            return jArray.ToString();
+            return @$"[{string.Join(", ", jArray.Value.Select(Visit))}]";
         }
 
         public override string Visit(BooleanToken token)
@@ -63,6 +63,11 @@ namespace Core.Traversal
         }
 
         public override string Visit(StringToken token)
+        {
+            return token.ToString();
+        }
+
+        public override string Visit(NullToken token)
         {
             return token.ToString();
         }
