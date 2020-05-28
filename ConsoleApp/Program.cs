@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using AutoFixture;
 using Core;
 using Core.Traversal;
 using FParsec.CSharp;
@@ -10,19 +10,18 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            var p = JsonParser.New();
+            var parser = JsonParser.New();
 
-            var payload = p.Parser.ParseFile("example.json");
+            var payload = parser.Parser.ParseFile("example.json");
 
             Console.WriteLine(new JsonPrettyFormatter().Visit(payload.Result));
 
-            var obj = new
-            {
-                name=  "Amir",
-                flag = true
-            };
+            var fixture = new Fixture();
 
-            Console.WriteLine(JsonSerializer.New().ToJson(obj));
+            var model = fixture.Build<Model>().Without(x => x.RefNull).Create();
+
+            Console.WriteLine("\nShould be True to make sure serializer/deserializer works:");
+            Console.WriteLine(JsonSerializer.New().ToJson(JsonDeserializer.New().FromJson<Model>(JsonSerializer.New().ToJson(model))) == JsonSerializer.New().ToJson(model));
         }
     }
 }

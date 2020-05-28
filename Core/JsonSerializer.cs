@@ -30,8 +30,8 @@ namespace Core
                     return new DoubleToken(value);
                 case string value:
                     return new StringToken(value);
-                case IList value:
-                    var tokens = (from object item in value select ToToken(item)).ToList();
+                case IList list:
+                    var tokens = (from object item in list select ToToken(item)).ToList();
                     return new JArray(tokens);
                 case { } value:
                     return new JObject(value.GetType().GetProperties()

@@ -6,6 +6,7 @@ Includes:
 - JSON parser
 - JSON pretty printer
 - JSON serializer
+- JSON deserializer
 
 ```json
 {
