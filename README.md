@@ -5,8 +5,7 @@ Simple JSON parser and pretty printer using `FParsec` library
 Includes:
 - JSON parser
 - JSON pretty printer
-- JSON serializer
-- JSON deserializer
+- JSON serializer and deserializer with support for recurisve types
 
 ```json
 {
