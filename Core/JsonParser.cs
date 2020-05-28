@@ -21,36 +21,36 @@ namespace Core
         
         private JsonParser()
         {
-            FSharpFunc<CharStream<Unit>, Reply<JToken>> jvalue = null;
+            FSharpFunc<CharStream<Unit>, Reply<JToken>> jValue = null;
 
-            var jnull = StringCI("null", (JToken) new NullToken()).Lbl("null");
+            var jNull = StringCI("null", (JToken) new NullToken()).Lbl("null");
 
-            var jnum = Float.Map(i => (JToken) i).Lbl("number");
+            var jNum = Float.Map(i => (JToken) i).Lbl("number");
 
-            var jbool = StringCI("true").Or(StringCI("false"))
+            var jBool = StringCI("true").Or(StringCI("false"))
                 .Map(b => (JToken) bool.Parse(b))
                 .Lbl("bool");
 
             var quotedString = Between('"', ManyChars(NoneOf("\"")), '"');
 
-            var jstring = quotedString.Map(s => (JToken) s).Lbl("string");
+            var jString = quotedString.Map(s => (JToken) s).Lbl("string");
 
-            var arrItems = Many(Rec(() => jvalue), CharP(',').And(WS));
-            var jarray = Between(CharP('[').And(WS), arrItems, CharP(']'))
+            var arrItems = Many(Rec(() => jValue), CharP(',').And(WS));
+            var jArray = Between(CharP('[').And(WS), arrItems, CharP(']'))
                 .Map(elems => (JToken) new JArray(elems))
                 .Lbl("array");
 
-            var jidentifier = quotedString.Lbl("identifier");
-            var jprop = jidentifier.And(WS).And(Skip(':')).And(WS).And(Rec(() => jvalue))
+            var jIdentifier = quotedString.Lbl("identifier");
+            var jProp = jIdentifier.And(WS).And(Skip(':')).And(WS).And(Rec(() => jValue))
                 .Map((name, value) => new JProperty(name, value));
-            var objProps = Many(jprop, CharP(',').And(WS));
-            var jobject = Between(CharP('{').And(WS), objProps, CharP('}'))
+            var objProps = Many(jProp, CharP(',').And(WS));
+            var jObject = Between(CharP('{').And(WS), objProps, CharP('}'))
                 .Map(props => (JToken) new JObject(props))
                 .Lbl("object");
 
-            jvalue = Choice(jnum, jbool, jnull, jstring, jarray, jobject).And(WS);
+            jValue = Choice(jNum, jBool, jNull, jString, jArray, jObject).And(WS);
 
-            Parser = WS.And(jobject).And(WS).And(EOF).Map(o => o switch
+            Parser = WS.And(jObject).And(WS).And(EOF).Map(o => o switch
             {
                 JObject objectValue => objectValue,
                 _ => null

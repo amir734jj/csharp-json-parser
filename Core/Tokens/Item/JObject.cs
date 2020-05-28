@@ -8,5 +8,10 @@ namespace Core.Tokens.Item
         {
             Value = properties;
         }
+
+        public override string ToString()
+        {
+            return $"{{ {string.Join(", ", Value)} }}";
+        }
     }
 }

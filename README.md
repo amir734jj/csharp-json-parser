@@ -2,6 +2,11 @@
 
 Simple JSON parser and pretty printer using `FParsec` library
 
+Includes:
+- JSON parser
+- JSON pretty printer
+- JSON serializer
+
 ```json
 {
  "glossary": {
