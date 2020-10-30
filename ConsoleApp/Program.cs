@@ -21,7 +21,11 @@ namespace ConsoleApp
             var model = fixture.Build<Model>().Without(x => x.RefNull).Create();
 
             Console.Write("\nShould be True to make sure serializer/deserializer works: ");
-            Console.WriteLine(JsonSerializer.New().ToJson(JsonDeserializer.New().FromJson<Model>(JsonSerializer.New().ToJson(model))) == JsonSerializer.New().ToJson(model));
+
+            Console.WriteLine(
+                JsonSerializer.New()
+                    .ToJson(JsonDeserializer.New().FromJson<Model>(JsonSerializer.New().ToJson(model))) ==
+                JsonSerializer.New().ToJson(model));
         }
     }
 }
