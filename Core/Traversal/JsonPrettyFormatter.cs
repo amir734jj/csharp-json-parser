@@ -15,16 +15,16 @@ namespace Core.Traversal
             return string.Empty.PadRight(_indent, ' ');
         }
         
-        public override string Visit(JObject jObject)
+        public override string Visit(JObject @object)
         {
             var sb = new StringBuilder();
 
             sb.AppendLine("{");
             
             _indent++;
-            var count = jObject.Value.Count();
+            var count = @object.Value.Count();
             var index = 0;
-            foreach (var jProperty in jObject.Value)
+            foreach (var jProperty in @object.Value)
             {
                 sb.Append(Indent());
                 sb.Append(Visit(jProperty));
@@ -42,14 +42,14 @@ namespace Core.Traversal
             return sb.ToString();
         }
 
-        public override string Visit(JProperty jProperty)
+        public override string Visit(JProperty property)
         {
-            return @$"""{jProperty.Value.Key}"": {Visit(jProperty.Value.Value)}";
+            return @$"""{property.Value.Key}"": {Visit(property.Value.Value)}";
         }
         
-        public override string Visit(JArray jArray)
+        public override string Visit(JArray array)
         {
-            return @$"[{string.Join(", ", jArray.Value.Select(Visit))}]";
+            return @$"[{string.Join(", ", array.Value.Select(Visit))}]";
         }
 
         public override string Visit(BooleanToken token)

@@ -15,6 +15,8 @@ namespace ConsoleApp
     {
         public Nested RefNull { get; set; }
 
-        public List<Nested> List { get; set; }
+        public List<Nested> ListOfObjects { get; set; }
+        
+        public List<Nested> ListOfPrimitives { get; set; }
     }
 }

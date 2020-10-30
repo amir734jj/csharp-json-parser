@@ -7,9 +7,9 @@ namespace Core.Abstracts
 {
     public abstract class Visitor<T> : IVisitor<T>
     {
-        protected T Visit(JToken jToken)
+        protected T Visit(JToken token)
         {
-            return jToken switch
+            return token switch
             {
                 JObject jObject => Visit(jObject),
                 JProperty jProperty => Visit(jProperty),
@@ -22,11 +22,11 @@ namespace Core.Abstracts
             };
         }
 
-        public abstract T Visit(JObject jObject);
+        public abstract T Visit(JObject @object);
 
-        public abstract T Visit(JProperty jProperty);
+        public abstract T Visit(JProperty property);
 
-        public abstract T Visit(JArray jArray);
+        public abstract T Visit(JArray array);
 
         public abstract T Visit(BooleanToken token);
 

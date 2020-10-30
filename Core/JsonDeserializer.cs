@@ -22,7 +22,7 @@ namespace Core
         {
         }
 
-        public static object FromToken(JToken token, Type type)
+        private static object FromToken(JToken token, Type type)
         {
             switch (token)
             {
@@ -48,7 +48,7 @@ namespace Core
                     var instance = Activator.CreateInstance(type);
                     foreach (var (propertyInfo, jProperty) in type.GetProperties().Join(jObject.Value,
                         info => info.Name, property => property.Value.Key,
-                        (propertyInfo, jProperty) => (propertyInfo, jProperty)))
+                        (propertyInfo, property) => (propertyInfo, property)))
                     {
                         propertyInfo.SetValue(instance, FromToken(jProperty.Value.Value, propertyInfo.PropertyType));
                     }

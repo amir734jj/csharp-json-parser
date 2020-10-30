@@ -5,11 +5,11 @@ namespace Core.Interfaces
 {
     public interface IVisitor<out T>
     {
-        T Visit(JObject jObject);
+        T Visit(JObject @object);
         
-        T Visit(JProperty jProperty);
+        T Visit(JProperty property);
 
-        T Visit(JArray jArray);
+        T Visit(JArray array);
 
         T Visit(BooleanToken token);
         
